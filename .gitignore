@@ -2,6 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=intellij+all,eclipse,windows,macos
 
 ### my ###
+application.yml
 pom.xml                                                            
 
 ### Eclipse ###
