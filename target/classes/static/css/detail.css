@@ -1,0 +1,30 @@
+.container {
+}
+
+.msg-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.msg-box__content {
+  width: 70%;
+  height: 40px;
+  margin: 10px 0px;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.msg-box__content-my {
+  padding-right: 10px;
+  align-self: flex-end;
+  text-align: end;
+  background: linear-gradient(45deg, #3ded9780, #2ddbdc80);
+}
+
+.msg-box__content-your {
+  padding-left: 10px;
+  background: linear-gradient(45deg, #3ded9720, #2ddbdc20);
+}
