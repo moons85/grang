@@ -11,12 +11,18 @@ const index1 = {
         });
         $("#findUserToggleBtn").on("click", () => {
             this.toggleFindUserBox()
+        });
+        const userDetail = document.querySelectorAll(".msg__main__content");
+        userDetail.forEach((target)=>{
+            target.addEventListener("click", ()=>this.showDetail(target.dataset.id))
         })
     },
     save: function () {
         const boardId = $("")
         const content = $(".send-box__content").val();
         const id = $('#iframe').contents().find('.msg-box__content-my')[0]
+
+
     },
     search: function () {
         const search = $("#search-input").val();
@@ -60,6 +66,7 @@ const index1 = {
 
                 div.appendChild(div3);
                 userBox.appendChild(div);
+                div.addEventListener("click", ()=> this.showDetail(124, 123));
             }
             index1.appendUser();
         }).fail(function (error) {
@@ -89,7 +96,10 @@ const index1 = {
             const number = Array.from(node).indexOf(userElement);
             const userInfo = node[number];
             if(this.checkDuplicationUser(userInfo.dataset.id)) {
-                return
+                return;
+            }
+            if(this.checkMyId(userInfo.dataset.id)) {
+                return;
             }
             const img = userInfo.children[0].children[0].children[0];
             img.width = 30;
@@ -113,16 +123,23 @@ const index1 = {
             div.appendChild(div3);
 
             userBox.append(div);
+            div.addEventListener("click", ()=> this.showDetail(userInfo.dataset.id));
             this.saveUser(userInfo);
         });
     },
 
     checkDuplicationUser: function (userId) {
         const chattingFriend = document.querySelectorAll(".msg__main__content");
+
         for(i of chattingFriend) {
             if(i.dataset.id === userId) return true;
         }
         return false;
+    },
+
+    checkMyId: function (userId) {
+        const myId = document.querySelector("#myId").value;
+        return userId === myId;
     },
 
     toggleFindUserBox: function () {
@@ -142,6 +159,11 @@ const index1 = {
             dataType: "json",
             contentType: "application/json; charset=UTF-8"
         });
+    },
+
+    showDetail: function (id) {
+        const iframe = document.querySelector("#iframe");
+        iframe.src = `/detail/${id}`
     }
 };
 index1.init();

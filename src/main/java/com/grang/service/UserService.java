@@ -14,6 +14,8 @@ public interface UserService {
 
 	User 회원찾기(String username);
 
+	User 회원찾기ById(int id);
+
 	List<User> 회원검색(String username);
 
 }

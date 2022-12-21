@@ -16,10 +16,10 @@
         <div class="msg__main">
             <div class="msg__main__user">
                 <c:forEach var="room" items="${rooms}">
-                <div class="msg__main__content slow" data-id="1">
-                    <div class="msg__main__content__image"><img src="${room.recvUser.profileImage}" width="30"></div>
-                    <div class="msg__main__content__name"><span>${room.recvUser.username}</span>
-                        <span>
+                    <div class="msg__main__content slow" data-id="${room.recvUser.id}">
+                        <div class="msg__main__content__image"><img src="${room.recvUser.profileImage}" width="30"></div>
+                        <div class="msg__main__content__name"><span>${room.recvUser.username}</span>
+                            <span>
                             <c:set value="${room.recvUser.loginTime}" var="date"/>
                             <%
                                 Date date = (Date)pageContext.getAttribute("date");
@@ -29,17 +29,15 @@
                                 long day = now / (1000 * 60 * 60 * 24);
                                 if(day >= 1) {
                                     out.print(day + "일전");
-                                    return;
                                 } else if(hour >= 1) {
                                     out.print(hour + "시간전");
-                                    return;
                                 } else  {
                                     out.print(minute + "분전");
                                 }
                             %>
                         </span>
+                        </div>
                     </div>
-                </div>
                 </c:forEach>
             </div>
             <div class="msg__main__plus">
@@ -63,9 +61,9 @@
                 <img src="/image/chatting.png" alt=""/>
             </div>
             <div class="img-box__container">
-                <iframe id="iframe" src="/detail" width="100%" height="80%"></iframe>
+                <iframe id="iframe" src="/detail/${rooms[0].recvUser.id}" width="100%" height="80%"></iframe>
                 <div class="send-box">
-                    <input class="send-box__content" value="dd"/>
+                    <input class="send-box__content"/>
                     <button class="send-box__btn" id="send-box__btn">보내기</button>
                 </div>
             </div>

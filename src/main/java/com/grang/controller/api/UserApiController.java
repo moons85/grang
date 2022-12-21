@@ -1,6 +1,7 @@
 package com.grang.controller.api;
 
 import com.grang.dto.ResponseDto;
+import com.grang.dto.RoomDto;
 import com.grang.model.AuthType;
 import com.grang.model.KakaoProfile;
 import com.grang.model.User;
@@ -14,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -63,6 +65,16 @@ public class UserApiController {
 	public List<User> findUser(String username) {
 		List<User> user = userServiceImpl.회원검색(username);
 		return user;
+	}
+
+	@PostMapping("/chat/findUser")
+	public List<User> findUser(@RequestBody RoomDto roomDto) {
+		User sendUser = userServiceImpl.회원찾기ById(roomDto.getSendUserId());
+		User recvUser = userServiceImpl.회원찾기ById(roomDto.getRecvUserId());
+		List<User> users = new ArrayList<>();
+		users.add(sendUser);
+		users.add(recvUser);
+		return users;
 	}
 
 }

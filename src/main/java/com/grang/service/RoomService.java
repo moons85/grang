@@ -31,6 +31,11 @@ public class RoomService {
         roomRepository.save(room);
     }
 
+/*    public Room 방찾기(int id) {
+        return roomRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("방찾기 실패: 방 아이디가 없습니다"));
+    }*/
+
     public List<Room> 방전체찾기(int id) {
         return roomRepository.findByRoom(id);
     }

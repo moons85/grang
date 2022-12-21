@@ -70,6 +70,8 @@ msg__main__user {
   padding-left: 10px;
   cursor: pointer;
   width: 100%;
+  z-index: 1;
+  position: relative;
 }
 
 .msg__main a:focus,

@@ -1,8 +1,10 @@
 package com.grang.controller;
 
+import com.grang.config.auth.PrincipalDetail;
 import com.grang.model.Room;
 import com.grang.service.RoomService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +19,21 @@ public class RoomController {
     private final RoomService roomService;
 
     @GetMapping("/chat/{id}")
-    public String chat(@PathVariable int id, Model model) {
+    public String chat(@PathVariable int id, Model model, @AuthenticationPrincipal PrincipalDetail principalDetail) {
+        if(id != principalDetail.getUser().getId()) {
+            return "redirect:/";
+        }
         List<Room> rooms = roomService.방전체찾기(id);
         model.addAttribute("rooms", rooms);
         return "/chat";
     }
+
+/*
+    @ResponseBody
+    @GetMapping("/room/{id}")
+    public Room findRoom(@PathVariable int id) {
+        return roomService.방찾기(id);
+    }
+*/
 
 }

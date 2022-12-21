@@ -48,7 +48,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public User 회원찾기ById(int id) {
+		return userRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("아이디 존재 x"));
+	}
+
+	@Override
 	public List<User> 회원검색(String username) {
 		return userRepository.findByUsername2(username);
 	}
+
 }

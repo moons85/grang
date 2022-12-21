@@ -17,6 +17,9 @@ public class RoomApiController {
 
     @PostMapping("/room/userSave/")
     public ResponseDto<Integer> userSave(@RequestBody RoomDto roomDto) {
+        if(roomDto.getSendUserId() == roomDto.getRecvUserId()) {
+            return new ResponseDto<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), 0);
+        }
         roomService.방생성(roomDto);
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
