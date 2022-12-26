@@ -3,8 +3,10 @@ package com.grang.controller;
 import com.grang.config.auth.PrincipalDetail;
 import com.grang.dto.ResponseDto;
 import com.grang.model.Reply;
+import com.grang.model.User;
 import com.grang.service.BoardService;
 import com.grang.service.ReplyService;
+import com.grang.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -21,6 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardController {
 
+	private final UserService userService;
 	private final BoardService boardService;
 	private final ReplyService replyService;
 
@@ -33,9 +36,8 @@ public class BoardController {
 
 	@GetMapping("/userPage/{id}")
 	public String detail(Model model, @PathVariable int id, @PageableDefault Pageable pageable, @AuthenticationPrincipal PrincipalDetail principalDetail) {
-		if(principalDetail.getUser().getId() != id){
-			return "redirect:/";
-		}
+		User user = userService.회원찾기ById(id);
+		model.addAttribute("user", user);
 		model.addAttribute("board", boardService.글전체보기(pageable));
 		model.addAttribute("userId", id);
 		return "/userPage";

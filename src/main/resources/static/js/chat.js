@@ -38,8 +38,14 @@ const index1 = {
                 const span2 = document.createElement("span");
                 span2.innerText = i.username;
                 const img = document.createElement("img");
-                img.src = i.profileImage;
+                console.log(i.profileImage)
+                if(i.profileImage != "/image/normal.jpg"){
+                    img.src = `/profile/${i.profileImage}`;
+                } else {
+                    img.src = "/image/normal.jpg";
+                }
                 img.width = 30;
+                img.height = 30;
                 const div3 = document.createElement("div");
                 div3.classList.add("findUser-box__user__column__btn");
                 const icon = document.createElement("i");
@@ -113,7 +119,10 @@ const index1 = {
             const i = document.createElement("i");
             i.className = "fa-solid fa-xmark";
 
-            div2.appendChild(img.cloneNode(true));
+            const cloneImg = img.cloneNode(true);
+            cloneImg.width = 50;
+            cloneImg.height = 50;
+            div2.appendChild(cloneImg);
             div3.appendChild(text.cloneNode(true));
             div3.appendChild(span);
             div.appendChild(div2);

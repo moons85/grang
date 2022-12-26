@@ -24,7 +24,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="drop-link">a
+                <a href="#" class="drop-link">
                     <i class="fa-solid fa-magnifying-glass drop-icon" id="drop1"></i>
                     <ul class="drop-down remove">
                         <input type="text" class="drop-down__input"/>

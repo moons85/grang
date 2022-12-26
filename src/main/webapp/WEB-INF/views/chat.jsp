@@ -17,7 +17,15 @@
             <div class="msg__main__user">
                 <c:forEach var="room" items="${rooms}">
                     <div class="msg__main__content slow" data-id="${room.recvUser.id}">
-                        <div class="msg__main__content__image"><img src="${room.recvUser.profileImage}" width="30">
+                        <div class="msg__main__content__image">
+                            <c:choose>
+                                <c:when test="${room.recvUser.profileImage == '/image/normal.jpg'}">
+                                    <img width="50" height="50" src="/image/normal.jpg">
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="/profile/${room.recvUser.profileImage}" width="50" height="50">
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                         <div class="msg__main__content__name"><span>${room.recvUser.username}</span>
                             <span>

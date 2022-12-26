@@ -5,7 +5,7 @@
       <div class="f_nav">
         <ul class="f_nav_list">
           <li>
-            <a href="/story">
+            <a href="/">
               <i class="fa-solid fa-house"></i>
             </a>
           </li>
@@ -23,7 +23,7 @@
             </button>
           </li>
           <li>
-            <a href="/updateUserForm">
+            <a href="/userPage/${principal.user.id}">
               <i class="fa-solid fa-user"></i>
             </a>
           </li>

@@ -13,8 +13,15 @@
 <%@ include file="layout/header.jsp"%>
 <main>
 	<div class="user-info">
-		<img class="user-info__img" width="50" height="50" src="${principal.user.profileImage}"/>
-		<span class="user-info__username">${principal.user.username}</span>
+		<c:choose>
+			<c:when test="${user.profileImage == '/image/normal.jpg'}">
+				<img class="user-info__img" width="50" height="50" src="/image/normal.jpg">
+			</c:when>
+			<c:otherwise>
+				<img class="user-info__img" width="50" height="50" src="/profile/${user.profileImage}"/>
+			</c:otherwise>
+		</c:choose>
+		<span class="user-info__username">${user.username}</span>
 	</div>
 	<ul>
 		<li class="on"><a href="*">ALL</a></li>
@@ -39,10 +46,12 @@
 				 			<span>${boards.user.username}</span>
 							<h2>${boards.title}</h2>
 							<p>${boards.content}</p>
+							<c:if test="${principal.user.id==boards.user.id}">
 							<a href="/updateBoardForm/${boards.id}">
 									<i class="fa-solid fa-pen"></i>
 									<span>수정,삭제</span>
 							</a>
+							</c:if>
 						</div>
 					</article>
 				</c:when>
