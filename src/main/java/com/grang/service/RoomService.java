@@ -7,6 +7,7 @@ import com.grang.repository.RoomRepository;
 import com.grang.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class RoomService {
 
     private final UserRepository userRepository;
 
+    @Transactional
     public void 방생성(RoomDto roomDto) {
         User sendUser = userRepository.findById(roomDto.getSendUserId())
                 .orElseThrow(() -> new IllegalArgumentException("없는 아이디"));
@@ -31,12 +33,12 @@ public class RoomService {
         roomRepository.save(room);
     }
 
-/*    public Room 방찾기(int id) {
-        return roomRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("방찾기 실패: 방 아이디가 없습니다"));
-    }*/
-
+    @Transactional(readOnly = true)
     public List<Room> 방전체찾기(int id) {
         return roomRepository.findByRoom(id);
+    }
+
+    public void 방삭제(RoomDto roomDto) {
+        roomRepository.deleteRoom(roomDto.getSendUserId(), roomDto.getRecvUserId());
     }
 }

@@ -20,8 +20,6 @@ let index = {
 			email : $(".email").val(),
 			password : $("#password1").val()
 		};
-		console.log(data);
-		/*console.log(data);*/
 		$.ajax({
 			type : "POST",
 			url : "/auth/api/user",
@@ -30,8 +28,9 @@ let index = {
 			datatype : "json"
 			}).done(function(resp) {
 				alert("회원가입이 완료되었습니다.")
+				location.replace("/")
 			}).fail(function(error) {
-				alert(JSON.stringify(error));
+				alert("존재하는 아이디입니다.");
 			})
 		}
 	}

@@ -9,9 +9,9 @@ async function initPage() {
     eventSource.onmessage = (event) => {
         const data = JSON.parse(event.data);
         if(data.sender === sendUser.username) {
-            initMyMessage(data);
+            initMessage(data, "my");
         } else {
-            initYourMessage(data);
+            initMessage(data, "your");
         }
     }
 }
@@ -30,23 +30,40 @@ function findUser() {
         .catch(err => console.log(err));
 }
 
-function initMyMessage(data) {
+function initMessage(data, role) {
+    let now = new Date(data.createdAt);
+
     let msgBox = document.querySelector(".msg-box");
     let sendBox = document.createElement("div");
+    sendBox.className = `msg-box__content-${role} msg-box__content`;
 
-    sendBox.innerText = data.msg;
-    sendBox.className = "msg-box__content-my msg-box__content";
+    let spanBox = document.createElement("div");
+    spanBox.className = "msg-box__my-clock";
+    let spanDate = document.createElement("span");
+    spanDate.innerText = `${String(now.getFullYear()).substring(2,4)} / ${String(now.getMonth()).padStart(2,"0")} / ${String(now.getDay()).padStart(2,"0")}`;
+    let spanTime = document.createElement("span");
+
+    if(now.getHours() > 12) {
+        spanTime.innerText = `오후 ${String(now.getHours() - 12).padStart(2,"0")} : ${String(now.getMinutes()).padStart(2,"0")}`;
+    } else {
+        spanTime.innerText = `오전 ${String(now.getHours()).padStart(2,"0")} : ${String(now.getMinutes()).padStart(2,"0")}`;
+    }
+
+    let msgText = document.createElement("span");
+    msgText.className = "msg-box__msg";
+    msgText.innerText = data.msg;
+
+    spanBox.append(spanDate);
+    spanBox.append(spanTime);
+    if(role === "my") {
+        sendBox.append(spanBox);
+        sendBox.append(msgText);
+    } else  {
+        sendBox.append(msgText);
+        sendBox.append(spanBox);
+    }
     msgBox.append(sendBox);
-    document.documentElement.scrollTop = document.body.scrollHeight;
-}
 
-function initYourMessage(data) {
-    let msgBox = document.querySelector(".msg-box");
-    let sendBox = document.createElement("div");
-
-    sendBox.innerText = data.msg;
-    sendBox.className = "msg-box__content-your msg-box__content";
-    msgBox.append(sendBox);
     document.documentElement.scrollTop = document.body.scrollHeight;
 }
 

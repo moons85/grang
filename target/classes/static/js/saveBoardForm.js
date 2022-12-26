@@ -179,7 +179,7 @@ function update(){
 }
 
 function deleteById(e){
-	
+    onload
 	var id=$("#id").val();
 	let userid=$("#userid").val();
 	console.log(id,userid)

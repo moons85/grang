@@ -5,7 +5,7 @@ import com.grang.dto.RoomDto;
 import com.grang.model.AuthType;
 import com.grang.model.KakaoProfile;
 import com.grang.model.User;
-import com.grang.service.UserServiceImpl;
+import com.grang.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,19 +22,19 @@ import java.util.Objects;
 @RestController
 public class UserApiController {
 
-	private UserServiceImpl userServiceImpl;
+	private UserService userService;
 	
 	private AuthenticationManager authenticationManager;
 	
 	@Autowired
-	public UserApiController(UserServiceImpl userServiceImpl, AuthenticationManager authenticationManager) {
-		this.userServiceImpl = userServiceImpl;
+	public UserApiController(UserService userService, AuthenticationManager authenticationManager) {
+		this.userService = userService;
 		this.authenticationManager = authenticationManager;
 	}
 
 	@PostMapping("/auth/api/user")
 	public ResponseDto<Integer> join(@RequestBody User user) {
-		userServiceImpl.회원가입(user);
+		userService.회원가입(user);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 	
@@ -49,10 +49,10 @@ public class UserApiController {
 		System.out.println("kakaoProfile = " + kakaoProfile);
 
 
-		User orginUser = userServiceImpl.회원찾기(kakaoUser.getUsername());
+		User orginUser = userService.회원찾기(kakaoUser.getUsername());
 		
 		if(orginUser.getUsername() == null) {
-			userServiceImpl.회원가입(kakaoUser);
+			userService.회원가입(kakaoUser);
 		}
 
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoProfile.getProperties().nickname, String.valueOf(Objects.hash(kakaoProfile.id))));
@@ -63,14 +63,14 @@ public class UserApiController {
 
 	@GetMapping("/auth/api/findUser")
 	public List<User> findUser(String username) {
-		List<User> user = userServiceImpl.회원검색(username);
+		List<User> user = userService.회원검색(username);
 		return user;
 	}
 
 	@PostMapping("/chat/findUser")
 	public List<User> findUser(@RequestBody RoomDto roomDto) {
-		User sendUser = userServiceImpl.회원찾기ById(roomDto.getSendUserId());
-		User recvUser = userServiceImpl.회원찾기ById(roomDto.getRecvUserId());
+		User sendUser = userService.회원찾기ById(roomDto.getSendUserId());
+		User recvUser = userService.회원찾기ById(roomDto.getRecvUserId());
 		List<User> users = new ArrayList<>();
 		users.add(sendUser);
 		users.add(recvUser);

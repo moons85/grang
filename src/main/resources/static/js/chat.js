@@ -17,13 +17,6 @@ const index1 = {
             target.addEventListener("click", ()=>this.showDetail(target.dataset.id))
         })
     },
-    save: function () {
-        const boardId = $("")
-        const content = $(".send-box__content").val();
-        const id = $('#iframe').contents().find('.msg-box__content-my')[0]
-
-
-    },
     search: function () {
         const search = $("#search-input").val();
 
@@ -115,15 +108,22 @@ const index1 = {
             div2.classList.add("msg__main__content__image");
             const div3 = document.createElement("div");
             div3.classList.add("msg__main__content__name");
+            const span2 = document.createElement("span");
+            span2.classList.add("msg__main__content__btn");
+            const i = document.createElement("i");
+            i.className = "fa-solid fa-xmark";
 
             div2.appendChild(img.cloneNode(true));
             div3.appendChild(text.cloneNode(true));
             div3.appendChild(span);
             div.appendChild(div2);
             div.appendChild(div3);
+            span2.appendChild(i);
+            div.appendChild(span2);
 
             userBox.append(div);
             div.addEventListener("click", ()=> this.showDetail(userInfo.dataset.id));
+            span2.addEventListener("click", ()=> this.deleteChatUser(event))
             this.saveUser(userInfo);
         });
     },
@@ -164,6 +164,51 @@ const index1 = {
     showDetail: function (id) {
         const iframe = document.querySelector("#iframe");
         iframe.src = `/detail/${id}`
+    },
+    
+    deleteChatUser: function (event) {
+        const userBox = document.querySelectorAll(".msg__main__content");
+        const clickedUserBox = event.target.parentElement.parentElement;
+        const myId = document.querySelector("#myId").value;
+        const clickId = clickedUserBox.dataset.id;
+
+        let data = {
+            sendUserId: myId,
+            recvUserId: clickId
+        }
+
+        fetch("/room", {
+            method: "delete",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json; charset=UTF-8",
+            },
+        }).then(resp => resp.json())
+            .then(resp => {
+                this.deleteMongoChatDb(resp)
+            })
+            .catch(err => console.log(err));
+
+        for(i of userBox) {
+            if(i.dataset.id === clickId) {
+                i.remove();
+            }
+        }
+    },
+
+    deleteMongoChatDb: function (user) {
+        let data = {
+            sender: user[0].username,
+            receiver: user[1].username
+        }
+
+        fetch("http://localhost:8100/chat", {
+            method: "delete",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json; charset=UTF-8",
+            },
+        }).catch(err => console.log(err));
     }
 };
 index1.init();

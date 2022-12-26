@@ -17,26 +17,30 @@
             <div class="msg__main__user">
                 <c:forEach var="room" items="${rooms}">
                     <div class="msg__main__content slow" data-id="${room.recvUser.id}">
-                        <div class="msg__main__content__image"><img src="${room.recvUser.profileImage}" width="30"></div>
+                        <div class="msg__main__content__image"><img src="${room.recvUser.profileImage}" width="30">
+                        </div>
                         <div class="msg__main__content__name"><span>${room.recvUser.username}</span>
                             <span>
                             <c:set value="${room.recvUser.loginTime}" var="date"/>
                             <%
-                                Date date = (Date)pageContext.getAttribute("date");
+                                Date date = (Date) pageContext.getAttribute("date");
                                 long now = Calendar.getInstance().getTimeInMillis() - date.getTime();
                                 long minute = now / (1000 * 60);
                                 long hour = now / (1000 * 60 * 60);
                                 long day = now / (1000 * 60 * 60 * 24);
-                                if(day >= 1) {
+                                if (day >= 1) {
                                     out.print(day + "일전");
-                                } else if(hour >= 1) {
+                                } else if (hour >= 1) {
                                     out.print(hour + "시간전");
-                                } else  {
+                                } else {
                                     out.print(minute + "분전");
                                 }
                             %>
                         </span>
                         </div>
+                        <span class="msg__main__content__btn" onclick="index1.deleteChatUser(event)">
+                            <i class="fa-solid fa-xmark"></i>
+                        </span>
                     </div>
                 </c:forEach>
             </div>

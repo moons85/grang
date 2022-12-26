@@ -8,7 +8,6 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -20,7 +19,7 @@ import java.util.List;
 public class Room {
 
     @Id
-    @GeneratedValue(generator = "USER_SEQ_GENERATOR4", strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "USER_SEQ_GENERATOR4", strategy = GenerationType.AUTO)
     private int id;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -30,9 +29,6 @@ public class Room {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "recvId")
     private User recvUser;
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "room")
-    private List<Message> messages;
 
     @CreationTimestamp
     private Timestamp timestamp;

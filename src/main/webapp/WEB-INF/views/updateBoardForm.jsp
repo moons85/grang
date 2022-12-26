@@ -21,7 +21,7 @@
             style="padding: 2px"
             style="margin: 2px"
           />
-          <div id="image_preview">
+          <div id="image_preview" on>
             <h4>사진</h4>
             <div id="att_zone">
               <c:set var="ss" value="${board.storyImages }"></c:set>
@@ -48,8 +48,8 @@
             >${board.content}</textarea>
           </div>
         </div>
-        <button type="submit" class="b_btn-save" id="updateBtn" onclick="update()" style="margin-right:10px; z-index:50;">수정</button>
-        <button type="submit" class="b_btn-save" id="deleteBtn" onclick="return deleteById()" style="z-index:50;">삭제</button>
+        <button type="button" class="b_btn-save" id="updateBtn" onclick="update()" style="margin-right:10px; z-index:50;">수정</button>
+        <button type="button" class="b_btn-save" id="deleteBtn" onclick="return deleteById()" style="z-index:50;">삭제</button>
       </form>
     </div>
 

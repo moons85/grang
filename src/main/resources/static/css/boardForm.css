@@ -185,6 +185,7 @@ header {
   color: black;
 }
 #att_zone {
+  overflow: auto;
   display: flex;
   width: 95%;
   border: 1px dotted;

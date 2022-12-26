@@ -12,8 +12,9 @@
 <script defer src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <%@ include file="layout/header.jsp"%>
 <main>
-	<div>
-		<div>${userId}</div>
+	<div class="user-info">
+		<img class="user-info__img" width="50" height="50" src="${principal.user.profileImage}"/>
+		<span class="user-info__username">${principal.user.username}</span>
 	</div>
 	<ul>
 		<li class="on"><a href="*">ALL</a></li>

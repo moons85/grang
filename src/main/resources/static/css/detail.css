@@ -8,13 +8,13 @@
 
 .msg-box__content {
   width: 70%;
-  height: 40px;
+  min-height: 40px;
   margin: 10px 0px;
   border-radius: 10px;
   position: relative;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .msg-box__content-my {
@@ -27,4 +27,17 @@
 .msg-box__content-your {
   padding-left: 10px;
   background: linear-gradient(45deg, #3ded9720, #2ddbdc20);
+}
+
+.msg-box__my-clock {
+  margin: 0 5px;
+  font-size: 5px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.msg-box__msg {
+  width: 80%;
+  word-break: break-all;
 }

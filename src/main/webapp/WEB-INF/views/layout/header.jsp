@@ -24,7 +24,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="drop-link">
+                <a href="#" class="drop-link">a
                     <i class="fa-solid fa-magnifying-glass drop-icon" id="drop1"></i>
                     <ul class="drop-down remove">
                         <input type="text" class="drop-down__input"/>
@@ -36,7 +36,7 @@
     <div class="h_nav">
         <ul class="h_nav_list">
             <li>
-                <a href="/story">
+                <a href="/">
                     <i class="fa-solid fa-house"></i>
                 </a>
             </li>
@@ -83,9 +83,11 @@
                                 <li class="userOption slow">
                                     <span onclick="location.href='/logout'">로그아웃</span>
                                 </li>
+                                <c:if test="${principal.user.auth == 'GENERAL'}">
                                 <li class="userOption slow">
                                     <span onclick="location.href='/updateUserForm'">회원수정</span>
                                 </li>
+                                </c:if>
                                 <li class="userOption slow">
                                     <span onclick="location.href='/userPage/${principal.user.id}'">유저페이지</span>
                                 </li>

@@ -3,6 +3,7 @@ package com.grang.controller;
 import com.grang.config.auth.PrincipalDetail;
 import com.grang.model.Room;
 import com.grang.service.RoomService;
+import com.grang.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import java.util.List;
 public class RoomController {
 
     private final RoomService roomService;
+    private final UserService userService;
 
     @GetMapping("/chat/{id}")
     public String chat(@PathVariable int id, Model model, @AuthenticationPrincipal PrincipalDetail principalDetail) {
@@ -28,6 +30,17 @@ public class RoomController {
         return "/chat";
     }
 
+    @GetMapping("/detail/")
+    public String detail() {
+        return "/welcome";
+    }
+
+    @GetMapping("/detail/{id}")
+    public String detail(@PathVariable int id, @AuthenticationPrincipal PrincipalDetail principalDetail, Model model) {
+        model.addAttribute("sendUser",principalDetail.getUser().getId());
+        model.addAttribute("recvUser", userService.회원찾기ById(id).getId());
+        return "/detail";
+    }
 /*
     @ResponseBody
     @GetMapping("/room/{id}")

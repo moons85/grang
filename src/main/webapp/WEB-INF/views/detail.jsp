@@ -14,9 +14,6 @@
 <input type="hidden" id="recvUser" value="${recvUser}">
 <div class="container">
     <div class="msg-box">
-        <div class="msg-box__content-my msg-box__content">
-            <span>hello${room.sendUser.username}</span>
-        </div>
     </div>
 </div>
 <script src="/js/detail.js"></script>

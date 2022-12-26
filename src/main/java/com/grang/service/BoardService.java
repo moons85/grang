@@ -4,7 +4,7 @@ import com.grang.dto.uploadDto;
 import com.grang.model.Board;
 import com.grang.model.User;
 import com.grang.repository.BoardRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,16 +15,11 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Service
 public class BoardService {
-	private BoardRepository boardRepository;
-	
-	
-	@Autowired
-	public BoardService(BoardRepository boardRepository) {
-		super();
-		this.boardRepository = boardRepository;
-	}
+
+	private final BoardRepository boardRepository;
 
 	@Transactional
 	public boolean 글쓰기(uploadDto boarduploadDto,User user) {
@@ -83,7 +78,7 @@ public class BoardService {
 	@Transactional(readOnly=true)
 	public Board 글상세보기(int id) {
 		return boardRepository.findById(id).orElseThrow(()->{
-			return new IllegalArgumentException("글 상세보기 실패: 아이디를 찾을 수 없습니다.");
+			throw new IllegalArgumentException("글 상세보기 실패: 아이디를 찾을 수 없습니다.");
 		});
 	}
 	
@@ -102,6 +97,15 @@ public class BoardService {
 	public void 글삭제하기(int id) {
 		boardRepository.deleteById(id);
 	}
-//	
-//	void 좋아요();
+
+	@Transactional public int likecnt(int boardId) {
+		System.out.println(boardId); return boardRepository.Likes(boardId); }
+
+	@Transactional(readOnly = true)
+	public int 좋아요조회(int userId, int boardId) {
+		System.out.println("userId = " + userId);
+		System.out.println("boardId = " + boardId);
+		return boardRepository.state(userId, boardId);
+	}
+
 }

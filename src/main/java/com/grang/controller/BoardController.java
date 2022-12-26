@@ -1,32 +1,28 @@
 package com.grang.controller;
 
+import com.grang.config.auth.PrincipalDetail;
 import com.grang.dto.ResponseDto;
 import com.grang.model.Reply;
 import com.grang.service.BoardService;
 import com.grang.service.ReplyService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class BoardController {
 
-	BoardService boardService;
-
-	@Autowired
-	public BoardController(BoardService boardService) {
-		this.boardService = boardService;
-	}
-
-	@Autowired
-	private ReplyService replyService;
+	private final BoardService boardService;
+	private final ReplyService replyService;
 
 	@GetMapping(value = {"", "/"})
 	public String index(Model model, @PageableDefault Pageable pageable) {
@@ -36,7 +32,10 @@ public class BoardController {
 	}
 
 	@GetMapping("/userPage/{id}")
-	public String detail(Model model, @PathVariable int id, @PageableDefault Pageable pageable) {
+	public String detail(Model model, @PathVariable int id, @PageableDefault Pageable pageable, @AuthenticationPrincipal PrincipalDetail principalDetail) {
+		if(principalDetail.getUser().getId() != id){
+			return "redirect:/";
+		}
 		model.addAttribute("board", boardService.글전체보기(pageable));
 		model.addAttribute("userId", id);
 		return "/userPage";
@@ -66,5 +65,16 @@ public class BoardController {
 		replyService.댓글수정(id, reply);
 		return new
 				ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+	}
+
+	@ResponseBody
+	@GetMapping("/auth/index/likes/{id}")
+	public List<Integer> getLikes(@PathVariable int id, @AuthenticationPrincipal PrincipalDetail principalDetail) {
+		int count = boardService.likecnt(id);
+		int state = boardService.좋아요조회(principalDetail.getUser().getId(), id);
+		List<Integer> list = new ArrayList<>();
+		list.add(count);
+		list.add(state);
+		return list;
 	}
 }

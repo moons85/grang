@@ -1,7 +1,16 @@
 const content = document.querySelectorAll(".add_reply");
 const btn = document.querySelectorAll(".r_btn-save");
-const edit = document.querySelectorAll(".reply_edit");
-const editBtn = document.querySelectorAll(".reply_edit_button");
+
+
+const c_content = document.querySelectorAll('.c_content');
+const r_c_content = document.querySelectorAll('.r_c_content');
+const more_btn = document.querySelectorAll('.r_c_more');
+const cancle_btn = document.querySelectorAll('.r_c_more_cancle');
+
+const edit = document.querySelectorAll(".reply_edit");//수정버튼
+const cancle_editbtn = document.querySelectorAll(".reply_cancle");
+const editBtn = document.querySelectorAll(".reply_edit_button");//게시버튼
+const edit_zone = document.querySelectorAll(".edit_zone");
 const deleteBtn = document.querySelectorAll(".reply_delete");
 
 btn.forEach((target)=>{
@@ -10,20 +19,67 @@ btn.forEach((target)=>{
 		this.save(e);
 	});
 });
+//더보기 부분
+for(let i=0; i<c_content.length; i++){
+	if(c_content[i].value.length<=45){
+		more_btn[i].style.display = "none";
+	}
+}
+
+more_btn.forEach((target)=>{
+	target.addEventListener('click',(e)=>{
+		e.preventDefault();
+		c = (e.target.parentElement.children[0]);
+		c.style.height = "100px";
+		c.style.webkitLineClamp= 12;
+		c.style.overflow="auto";
+		x = (e.target.parentElement.children[2]);
+		x.style.display="block";
+		m = (e.target.parentElement.children[1]);
+		m.style.display="none";
+	})
+})
+
+cancle_btn.forEach((target)=>{
+	target.addEventListener('click',(e)=>{
+		e.preventDefault();
+		c = (e.target.parentElement.children[0]);
+		c.style.overflow="hidden";
+		c.style.height = "50px";
+		c.style.webkitLineClamp= 2;
+
+		x = (e.target.parentElement.children[2]);
+		x.style.display="none";
+		m = (e.target.parentElement.children[1]);
+		m.style.display="block";
+	})
+})
 
 edit.forEach((target)=>{
 	target.addEventListener('click',(e)=>{
 		e.preventDefault();
-			count1 = (e.target.parentElement.children[0]);
-			count2 = (e.target.parentElement.children[1]);
-			count3 = (e.target.parentElement.children[3].children[0]);
-			count4 = (e.target.parentElement.children[3].children[1]);
-			count1.style.display = "none";
-			count2.style.display = "inline";
-			count3.style.display = "inline";
-			count4.style.display = "inline";
+		editzone = (e.target.parentElement.parentElement.children[1].children[0].children[3]);
+		cancle = (e.target.parentElement.parentElement.children[2].children[2]);
+		dn = (e.target.parentElement.parentElement.children[2].children[1]);
+		editzone.style.display="block";
+		cancle.style.display="block";
+		dn.style.display="none";
+
 	});
 });
+
+cancle_editbtn.forEach((target)=>{
+	target.addEventListener('click',(e)=>{
+		e.preventDefault();
+		editzone = (e.target.parentElement.parentElement.children[1].children[0].children[3]);
+		cancle = (e.target.parentElement.parentElement.children[2].children[2]);
+		dn = (e.target.parentElement.parentElement.children[2].children[1]);
+		editzone.style.display="none";
+		cancle.style.display="none";
+		dn.style.display="block";
+
+	})
+})
 
 editBtn.forEach((target)=>{
 	target.addEventListener('click',(e)=>{
@@ -44,63 +100,60 @@ deleteBtn.forEach((target)=>{
 
 function save(event){
 	let data = {
-		content: event.target.parentElement.children[4].value,
-		boardId: event.target.parentElement.children[2].value,
-		userId: event.target.parentElement.children[3].value
+		content: event.target.parentElement.children[2].value,
+		boardId: event.target.parentElement.children[0].value,
+		userId: event.target.parentElement.children[1].value
 	}
-		console.dir(event.target.parentElement.children[2].value);
-		console.log(data);
-		
-		$.ajax({
-			type: "POST",
-			url: "/api/reply",
-			data: JSON.stringify(data),
-			contentType: "application/json; charset=utf-8",
-			dataType: "json"
-		}).done(function(resp){
-			alert("댓글 작성이 완료되었습니다.");
-			location.href="/";
-		}).fail(function(error){
-			alert("실패");
-		});
+
+	$.ajax({
+		type: "POST",
+		url: "/api/reply",
+		data: JSON.stringify(data),
+		contentType: "application/json; charset=utf-8",
+		dataType: "json"
+	}).done(function(resp){
+		alert("댓글 작성이 완료되었습니다.");
+		location.href="/";
+	}).fail(function(error){
+		alert("실패");
+	});
 }
 
 function editReply(event) {
-		const parent = event.target.parentElement.parentElement.parentElement;
-		const id =parent.children[0].value;
-		/*alert(id)*/
-		let data = {
-			content : event.target.parentElement.parentElement.children[3].children[0].value
-		}
-		/*alert(data.content)*/
-		$.ajax({
-			type: "PUT",
-			url: "/api/reply/"+id,
-			data: JSON.stringify(data),
-			contentType: "application/json; charset=utf-8",
-			dataType: "json"
-		}).done(function(resp){
-			alert("댓글 수정이 완료되었습니다.");
-			location.href="/";
-		}).fail(function(error){
-			alert(JSON.stringify(error));
-		});
+	const count = (event.target.parentElement.children[1]).value;//input
+	const id =(event.target.parentElement.children[0]).value;
+	/*alert(id)*/
+	let data = {
+		content : count
+	}
+	/*alert(data.content)*/
+	$.ajax({
+		type: "PUT",
+		url: "/api/reply/"+id,
+		data: JSON.stringify(data),
+		contentType: "application/json; charset=utf-8",
+		dataType: "json"
+	}).done(function(resp){
+		alert("댓글 수정이 완료되었습니다.");
+		location.href="/";
+	}).fail(function(error){
+		alert(JSON.stringify(error));
+	});
 }
 
 function deleteById(event) {
-		const parent = event.target.parentElement.parentElement;
-		const id =parent.children[0].value;
+	const parent = event.target.parentElement.parentElement;
+	const reid =event.target.parentElement.children[0].value;
 
-		
-		$.ajax({
-			type: "DELETE",
-			url: "/api/reply/"+id,
-			dataType: "json"
-		}).done(function(resp){
-			alert("댓글 삭제가 완료되었습니다.");
-			parent.remove();
-			location.href="/";
-		}).fail(function(error){
-			alert(JSON.stringify(error));
-		});
+	$.ajax({
+		type: "DELETE",
+		url: "/api/reply/"+reid,
+		dataType: "json"
+	}).done(function(resp){
+		alert("댓글 삭제가 완료되었습니다.");
+		parent.remove();
+		location.href="/";
+	}).fail(function(error){
+		alert(JSON.stringify(error));
+	});
 }

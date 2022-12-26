@@ -21,7 +21,7 @@ import java.util.List;
 public class Board {
 
 	@Id
-	@GeneratedValue(generator = "USER_SEQ_GENERATOR2", strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "USER_SEQ_GENERATOR2", strategy = GenerationType.AUTO)
 	private int id;
 	
 	@Column(nullable = false, length = 50)
@@ -32,6 +32,8 @@ public class Board {
 	
 	@ColumnDefault("0")
 	private int count;
+
+	private int likeCount;
 	
 	@Lob
 	private String storyImages;
