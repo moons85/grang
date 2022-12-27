@@ -21,7 +21,7 @@ btn.forEach((target)=>{
 });
 //더보기 부분
 for(let i=0; i<c_content.length; i++){
-	if(c_content[i].value.length<=45){
+	if(c_content[i].value.length<=35){
 		more_btn[i].style.display = "none";
 	}
 }

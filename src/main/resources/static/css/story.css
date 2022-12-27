@@ -189,7 +189,6 @@ header {
     }
     .replyform input {
         width: 70%;
-        height: 0px;
         background-color: #fff;
         box-shadow: 0 6px 10px 0 rgba(0, 0, 0, -1);
         border: 0;
@@ -333,6 +332,27 @@ header {
 
     .r_info_label .r_info_title{
         display: block;
+        text-overflow: ellipsis;
+        /*display: -webkit-box;*/
+        word-wrap:break-word;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+    }
+
+    .r_info_label .r_info_title::-webkit-scrollbar{
+        width: 5px;
+    }
+
+    .r_info_label .r_info_title::-webkit-scrollbar-thumb{
+        border-radius: 5px;
+        background-clip: padding-box;
+        border: 2px solid transparent;
+        background-color: skyblue;
+    }
+
+    .r_info_label .r_info_title::-webkit-scrollbar-track{
+        background: #eee;
+        border-radius: 5px;
     }
 
     .replyform input {
@@ -419,7 +439,7 @@ header {
         overflow: hidden;
         border:none;
         text-overflow: ellipsis;
-        white-space:nowrap;
+        /*white-space: nowrap;*/
         display: -webkit-box;
         word-wrap:break-word;
         -webkit-line-clamp: 2;
@@ -516,7 +536,7 @@ header {
         width: 320px;
         height: 30px;
         border: 1px solid;
-        padding : 1px;
+        padding: 1px;
         padding-left : 10px;
         border-radius : 10px;
         padding-right : 10px;
