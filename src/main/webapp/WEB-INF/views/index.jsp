@@ -44,7 +44,7 @@
                             </div>
                             <div class="r_img__heart">
                                 <i class="fa-regular fa-heart" style="padding-top:5px;"></i>
-                                <input type="text" value="${boards.likeCount}" class="heart_cnt" readonly>
+                                <input type="text" value="${boards.likeCount}" class="heart_cnt" readonly style="background: none; margin-left: -10px;">
                                 <input type="hidden" value="${boards.id}" class="boardId">
                                 <input type="hidden" value="${boards.user.username}">
                             </div>

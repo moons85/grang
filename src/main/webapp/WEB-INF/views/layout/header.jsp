@@ -50,7 +50,7 @@
                     <i class="fa-solid fa-pen-to-square"></i>
                 </a>
             </li>
-            <li>
+            <li style="margin-top: 32px">
                 <button class="playmusic m_btn">
                     <i class="fa-solid fa-play"></i>
                 </button>

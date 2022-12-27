@@ -185,9 +185,14 @@ a {
     transition: all 0.5s;
   }
 
+
   .h_nav_list > li a {
     font-size: 20px;
     color: #3ded97;
+  }
+
+  .h_nav_list > li a i{
+    cursor: pointer;
   }
 
   .h_nav_list > li:hover {

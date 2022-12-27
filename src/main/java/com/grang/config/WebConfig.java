@@ -14,7 +14,7 @@ public class WebConfig implements WebMvcConfigurer{
 		if (osName.contains("Mac")) {
 			registry.addResourceHandler("/upload/**").addResourceLocations("file:///Users/"+ userName + "/Pictures/grangImg/");
 		} else if (osName.contains("Windows")) {
-			registry.addResourceHandler("/upload/**").addResourceLocations("file:///C:/"+ userName +"/Pictures/grangImg/");
+			registry.addResourceHandler("/upload/**").addResourceLocations("file:///C:/Users/"+ userName +"/Pictures/grangImg/");
 		}
 
 		if (osName.contains("Mac")) {
