@@ -14,8 +14,8 @@
                     placeholder="제목을 입력해주세요."
                     class="b_title"
                     id="title"
-                    style="padding: 2px"
-                    style="margin: 2px"
+                    style="padding: 2px;margin: 2px;border: 1px solid #eee; "
+
             />
             <div id="image_preview">
                 <h4>사진</h4>

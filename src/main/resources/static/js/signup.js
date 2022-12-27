@@ -7,10 +7,27 @@ let index = {
     test : function() {
       var p1 = document.getElementById("password1").value;
       var p2 = document.getElementById("password2").value;
+	  var username = document.querySelector(".username").value;
+	  var email = document.querySelector(".email").value;
       if( p1 != p2 ) {
         alert("비밀번호가 일치하지 않습니다");
+		console.log(username);
+		console.log(email);
         return false;
-      } else{
+      }
+	  else if(p1===null || p1.trim()===''){
+		  alert("비밀번호를 입력해주세요");
+		  return false;
+	  }
+	  else if(username===null || username.trim()===''){
+		  alert("아이디를 입력해주세요");
+		  return false;
+	  }
+	  else if(email===null || email.trim()===''){
+		  alert("이메일을 입력해주세요");
+		  return false;
+	  }
+	  else{
         this.save();
       };
     },

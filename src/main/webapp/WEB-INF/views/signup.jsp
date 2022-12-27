@@ -59,7 +59,7 @@
         <div class="haveAccount">
           <p>
             계정이 있으신가요?
-            <a href="/auth/login" class="noneunderline">로그인 하기</a>
+            <a href="/auth/login" class="singuplink">로그인 하기</a>
           </p>
         </div>
       </div>

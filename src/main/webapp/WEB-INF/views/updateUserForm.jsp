@@ -24,14 +24,14 @@
         <div class="box2">
             <ul>
                 <li>
-                    <input type="text" class="id sign_input" value="${principal.user.username }" style="padding-left: 10px" id="uId"/>
+                    <input type="text" class="id sign_input" value="${principal.user.username }" style="padding-left: 10px" id="uId" readonly/>
                 </li>
             </ul>
         </div>
         <div class="box2">
             <ul>
                 <li>
-                    <input type="text" class="id sign_input" value="${principal.user.email }" style="padding-left: 10px" id="uEmail"/>
+                    <input type="email" class="id sign_input" placeholder="이메일" value="${principal.user.email }" style="padding-left: 10px" id="uEmail"/>
                 </li>
             </ul>
         </div>

@@ -53,7 +53,7 @@
                         <div class="r_info">
                             <label class="r_info_label">
                                 <div class="r_info_title"
-                                     style="width : 400px; margin :auto; margin-top : -15px; margin-left :-5px; overflow : auto; height : 60px;">
+                                     style="width : 400px; margin :auto; margin-top : -10px; margin-left :-5px; overflow : auto; height : 60px;">
                                     <h3 style="margin-bottom : 5px; font-weight:bolder;">${boards.title}</h3>
                                     <p style="display:initial; font-size : 14px;">${boards.content}</p>
                                 </div>

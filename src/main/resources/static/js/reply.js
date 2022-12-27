@@ -99,10 +99,17 @@ deleteBtn.forEach((target)=>{
 
 
 function save(event){
+	const content = event.target.parentElement.children[2].value
+	const boardId= event.target.parentElement.children[0].value
+	const userId= event.target.parentElement.children[1].value
+	if(content.trim() === '' || content===null){
+		alert("내용을 입력해주세요")
+		return false;
+	}
 	let data = {
-		content: event.target.parentElement.children[2].value,
-		boardId: event.target.parentElement.children[0].value,
-		userId: event.target.parentElement.children[1].value
+		content,
+		boardId,
+		userId
 	}
 
 	$.ajax({
@@ -122,7 +129,10 @@ function save(event){
 function editReply(event) {
 	const count = (event.target.parentElement.children[1]).value;//input
 	const id =(event.target.parentElement.children[0]).value;
-	/*alert(id)*/
+	if(count.trim()==='' || count===null){
+		alert("내용을 입력해주세요")
+		return false;
+	}
 	let data = {
 		content : count
 	}

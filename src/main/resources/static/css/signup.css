@@ -116,6 +116,11 @@
     font-size: 15px;
     font-weight: 700px;
     cursor: pointer;
+    transition: all 0.3s;
+  }
+  .ordinarysignup:hover{
+    background: #3ded97;
+    color: white;
   }
 
   .leftHr {
@@ -155,6 +160,10 @@
   .haveAccount {
     margin-top: 20px;
     text-align: center;
+  }
+  .singuplink{
+    color: #3ded97;
+    font-weight: bold;
   }
 
   footer {

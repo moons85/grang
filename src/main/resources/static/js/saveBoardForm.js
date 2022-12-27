@@ -121,6 +121,10 @@ function upload(event){
 		alert("사진은 5개까지 업로드 가능합니다.");
 		return false;
 	}
+    if($('#title').val().trim()==='' || $('#title').val()===null){
+        alert("제목을 입력해주세요")
+        return false;
+    }
 
 	formData.append("title",$('#title').val());
 	

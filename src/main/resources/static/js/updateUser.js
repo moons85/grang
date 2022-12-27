@@ -23,10 +23,20 @@ let index = {
     test : function() {
       var p1 = document.getElementById("pwd").value;
       var p2 = document.getElementById("pwdc").value;
+	  var email = document.getElementById("uEmail").value;
       if( p1 != p2 ) {
         alert("비밀번호가 일치하지 않습니다");
         return false;
-      } else{
+      }
+	  else if(p1.trim()==='' || p1===null){
+		  alert("비밀번호를 입력하세요");
+		  return false;
+	  }
+	  else if(email.trim()==='' || email===null){
+		  alert("이메일을 입력하세요");
+		  return false;
+	  }
+	  else{
         this.update();
       };
     },
