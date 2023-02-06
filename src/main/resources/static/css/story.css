@@ -168,10 +168,14 @@ header {
         height:40px;
         background: #fff;
         border-radius: 25px;
+        margin-top: -15px;
         padding: 15px;
     }
 
     .heart_cnt{
+        margin-left: -10px;
+        font-size: 20px;
+        margin-top: -10px;
         background: none;
         padding: 0;
         border: none;
@@ -312,7 +316,7 @@ header {
     }
 
     .r_img__heart .heart_cnt{
-        margin-top:-5px;
+        margin-top:-3px;
         margin-left:-15px;
         background: none;
         border: none;

@@ -33,7 +33,7 @@ function clickDropIcon(event) {
 
 function findUser(event) {
   if (event.keyCode === 13 && event.target.value !== "") {
-    let url = new URL("http://localhost:8090/auth/api/findUser");
+    let url = new URL("http://localhost:8081/auth/api/findUser");
     const params = {username: event.target.value}
     url.search = new URLSearchParams(params).toString();
 
